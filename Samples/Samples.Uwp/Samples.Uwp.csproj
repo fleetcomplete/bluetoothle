@@ -130,9 +130,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Plugin.BluetoothLE.Abstractions\Plugin.BluetoothLE.Abstractions.csproj">
-      <Project>{01d11ef2-074c-4bc0-9c05-5a6a9f974e05}</Project>
-      <Name>Plugin.BluetoothLE.Abstractions</Name>
+    <ProjectReference Include="..\..\Plugin.BluetoothLE\Plugin.BluetoothLE.csproj">
+      <Project>{4ab5692c-8979-41f8-b6e4-a3fc70a25f76}</Project>
+      <Name>Plugin.BluetoothLE</Name>
     </ProjectReference>
     <ProjectReference Include="..\Samples\Samples.csproj">
       <Project>{af0917dd-079a-49cb-9115-ba08340e4ed8}</Project>

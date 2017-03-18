@@ -1,75 +1,196 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F44FEBBA-7EA7-4B92-BF25-EBDCC1DB1830}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Plugin.BluetoothLE</RootNamespace>
-    <AssemblyName>Plugin.BluetoothLE</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;BAIT</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;BAIT</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-Core.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.Interfaces.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-Linq.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.Linq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.PlatformServices.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Plugin.BluetoothLE.Abstractions\Plugin.BluetoothLE.Abstractions.csproj">
-      <Project>{01d11ef2-074c-4bc0-9c05-5a6a9f974e05}</Project>
-      <Name>Plugin.BluetoothLE.Abstractions</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="..\Plugin.BluetoothLE.Shared\Plugin.BluetoothLE.Shared.projitems" Label="Shared" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFrameworks>netstandard1.0;portable-win+net45+wp8+win8+wpa81;monoandroid70;xamarinios;xamarintvos;xamarinmac</TargetFrameworks>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+        <Authors>Allan Ritchie</Authors>
+        <PackageLicenseUrl>https://github.com/aritchie/bluetoothle/blob/master/LICENSE.md</PackageLicenseUrl>
+        <PackageProjectUrl>https://github.com/aritchie/bluetoothle</PackageProjectUrl>
+        <MinClientVersion>2.12</MinClientVersion>
+        <Description>Cross Platform Reactive Bluetooth LE Plugin for Xamarin
+
+Supported Platforms
+Android 4.3+
+iOS 7+
+tvOS
+macOS</Description>
+        <Copyright>© Allan Ritchie 2017</Copyright>
+        <PackageTags>ios;android;uwp;windows;tvos;mac;macos;xamarin;rx;reactive;ble;bluetooth;bluetoothle</PackageTags>
+        <Product>Plugin.BluetoothLE ($(TargetFramework))</Product>
+        <IncludeSymbols>true</IncludeSymbols>
+        <UseFullSemVerForNuGet>true</UseFullSemVerForNuGet>
+        <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
+        <DebugType>full</DebugType>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <PackageReleaseNotes>2.1.0
+[fix][android] services were not cleaning up between connections
+new multitargeted solution allows for PCL and netstandard
+
+2.0.2
+[fix][android] more gatt133 fixes
+[fix][android] additional fixes for cancel connection
+[fix][android] Connect completion wasn't being called properly
+
+2.0.1
+[fix][android] finalization was causing NRE
+
+2.0
+[feature] macOS support
+[feature][all] Connection configuration allows you to set connection priority, notification states on iOS, tvOS, macOS, and whether or not to make the connection persistent
+[feature][macos/tvos/ios] Background mode via CBCentralInitOptions - On the platform project use BleAdapter.Init(BleAdapterConfiguration)
+[feature][ios] Background - Adapter.WhenDeviceStateRestored() will allow to hook for background state restoration (must be used in conjunction with BleAdapter.Init)
+[feature][uwp][droid] Reliable write transaction via Device.BeginReliableWriteTransaction() and GattReliableWriteTransaction
+[feature][uwp][droid] WriteBlob now uses reliable write transactions
+[feature] Adapter.GetPairedDevices() - pretty self explanatory
+[breaking][feature] RequestMtu now returns as an observable with what the accepted MTU was
+[breaking] CreateConnection is gone - created more issues than it solved - Use Connect() as it creates persistent connections out of the gate
+[breaking] Disconnect has been renamed to CancelConnection as it cancels any pending connections now
+[breaking] Logging is gone.  It just isn't needed in light of all of the top level events
+[fix][droid] disconnect on existing connection tries
+[fix][droid] more gatt 133 issues
+[fix][all] Blob write observable subscriptions not firing properly
+[fix][all] NotifyEncryptionRequired, Indicate, and IndicateEncryptionRequired return true for CanNotify
+
+1.3
+[fix][droid] descriptors and characteristic read/writes now adhere to AndroidConfig.WriteOnMainThread
+[fix][ios] WhenStatusChanged was causing OnError when a connection failure occurred
+[fix][core] BlobWrite will now use proper MTU
+[breaking][feature][core] Background scan has been replaced.  The normal scan now takes a configuration.
+[feature][core] Get current MTU size
+[feature][droid] monitor MTU changes
+
+1.2
+[feature] ability to open bluetooth settings configuration
+[feature] ability to request MTU is now part of device (still only available on droid - but allows for greater flexibility)
+[feature][droid] ability to pair with a device
+[feature][droid] ability to toggle bluetooth adapter status
+
+1.1
+[BREAKING] Characteristic/Descriptor Read, Write, and Notification events now return CharacteristicResult that includes the sender characteristic as well as the data
+[fix][droid] Write was not broadcasting completion at the right time
+
+1.0.8
+[fix] completion of ReadUntil
+
+1.0.7
+[feature] IGattCharacteristic.ReadUntil(endBytes) extension method will read in a loop until end bytes detected
+[feature][droid] AndroidConfig.MaxTransmissionUnitSize (MTU) can now be set to negotiate MTU upon connections
+
+1.0.6
+[fix][droid] write on main thread (can use AndroidConfig.WriteOnMainThread = false, to disable)
+[feature] Blob write
+[feature] Logging now has deviceconnected/devicedisconnected if you wish to monitor just one of the status'
+
+1.0.5
+[fix] ability to check for true WriteNoResponse flags
+[fix][droid] ship proper unsubscribe bytes
+
+1.0.4
+[fix] logging cleanup
+[feature][core] add logging abilities from device reference
+[feature][droid] add improved way to deal with Android connection issues (please read docs under Android Troubleshooting)
+
+1.0.3
+[fix][core] logging would not hook properly to existing connected devices
+[fix][droid] deal with gatt error 133 by delaying service discovery post connection
+[workaround] tvOS was having issues. temporarily pulled from nuget
+
+1.0.2
+[feature] write without response void method added
+[feature] proper equals check for all ble objects
+
+1.0.1
+[fix][all] new adapter scans only clear disconnected devices from cache
+[feature] Adapter.GetConnectedDevices
+
+1.0.0
+[fix][droid] WhenStatusChanged firing on subscription and replays properly
+[fix][droid] properly parsing 16 and 32bit UUIDs in advertisement packet
+
+0.9.9
+[breaking] WhenActionOccurs renamed to CreateLogger
+[fix] ensure WhenScanStatusChanged() broadcasts its current state on registration
+Logging now returns actual packet received where applicable
+
+0.9.8
+adding tvOS libraries to package (NOT TESTED)
+[fix] createconnection properly persists connection now
+[fix] more logging and discovery issues
+[fix][droid] device.readrssi was not working
+[droid] device.whenstatuschanged will now broadcast Connecting/Disconnecting
+[droid] advertisement packet now gets all service UUIDs parsed
+
+0.9.7
+[fix] Error notifications on read/writes
+[fix] Make sure to replay last status for connectable observables
+[fix] Service discovery on iOS and Android was not registering subsequent subscriptions properly
+[fix][droid] Read/Write callbacks now passing values back properly
+[breaking] PersistentConnection is now CreateConnection with improvements to status reporting
+
+0.9.6
+Vastly improved logging
+Improvements to observable allocations
+Improvements in service discovery
+
+0.9.5
+[breaking] Change extension method names
+
+0.9.4
+[breaking] Characteristic method WhenNotificationOccurs() is now called WhenNotificationReceived().  It also no longer subscribes to notifications.  Use new method SubscribeToNotifications().  WhenNotificationReceived() is for logging purposes
+
+0.9.3
+Add heartrate plugin (extension method)
+Add super logging plugin (extension method)
+Characteristics and Descriptors now have WhenRead/WhenWritten events to monitor calls externally
+
+0.9.2
+ScanListen for working with scan results from a background or decoupled component
+
+0.9.1
+BackgroundScan added and ScanFilter removed
+Multiple entry points can now hook up to scan, but only one will run (connectable refcount observable)
+
+0.9.0
+Initial Public Release</PackageReleaseNotes>
+        <PackageIconUrl>https://github.com/aritchie/bluetoothle/raw/master/icon.png</PackageIconUrl>
+        <Company />
+        <Version>2.1.0</Version>
+    </PropertyGroup>
+    <!--
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+        <TargetPlatformVersion>10.0.15060.0</TargetPlatformVersion>
+        <TargetPlatformMinVersion>10.0.15001.0</TargetPlatformMinVersion>
+    </PropertyGroup>
+    -->
+
+    <ItemGroup>
+        <Compile Remove="Platforms\**\*.*" />
+        <None Include="Platforms\**\*.*" />
+        <EmbeddedResource Include="Properties\Plugin.BluetoothLE.rd.xml" />
+        <PackageReference Include="MSBuild.Sdk.Extras" Version="1.0.0" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.0' ">
+        <PackageReference Include="System.Reactive" Version="3.1.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'portable-win+net45+wp8+win8+wpa81' ">
+        <PackageReference Include="Rx-Main" Version="2.2.5" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'xamarinios' OR '$(TargetFramework)' == 'xamarintvos' OR '$(TargetFramework)' == 'xamarinmac' ">
+        <Compile Include="Platforms\Apple\*.cs" />
+        <PackageReference Include="System.Reactive" Version="3.1.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'monoandroid70' ">
+        <Compile Include="Platforms\Android\*.cs" />
+        <PackageReference Include="System.Reactive" Version="3.1.1" />
+    </ItemGroup>
+
+    <!--<ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+        <Compile Include="Platforms\Uwp\*.cs" />
+        <PackageReference Include="System.Reactive" Version="3.1.1" />
+        <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform " Version="5.3.1" />
+    </ItemGroup>-->
+    <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>
