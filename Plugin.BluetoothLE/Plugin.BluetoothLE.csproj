@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFrameworks>netstandard1.0;portable-win+net45+wp8+win8+wpa81;monoandroid70;xamarinios;xamarintvos;xamarinmac</TargetFrameworks>
+        <!--<TargetFrameworks>netstandard1.0;portable-win+net45+wp8+win8+wpa81;monoandroid70;xamarinios;xamarintvos;xamarinmac</TargetFrameworks>-->
+        <TargetFrameworks>netstandard1.0;monoandroid70;Xamarin.iOS10;</TargetFrameworks>
         <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
         <Authors>Allan Ritchie</Authors>
         <PackageLicenseUrl>https://github.com/aritchie/bluetoothle/blob/master/LICENSE.md</PackageLicenseUrl>
         <PackageProjectUrl>https://github.com/aritchie/bluetoothle</PackageProjectUrl>
         <MinClientVersion>2.12</MinClientVersion>
-        <Description>Cross Platform Reactive Bluetooth LE Plugin for Xamarin
+        <Description>
+Cross Platform Reactive Bluetooth LE Plugin for Xamarin
 
 Supported Platforms
 Android 4.3+
@@ -18,10 +20,11 @@ macOS</Description>
         <Product>Plugin.BluetoothLE ($(TargetFramework))</Product>
         <IncludeSymbols>true</IncludeSymbols>
         <UseFullSemVerForNuGet>true</UseFullSemVerForNuGet>
-        <GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>
+        <!--<GenerateDocumentationFile Condition=" '$(Configuration)' == 'Release' ">true</GenerateDocumentationFile>-->
         <DebugType>full</DebugType>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-        <PackageReleaseNotes>2.1.0
+        <PackageReleaseNotes>
+2.1.0
 [fix][android] services were not cleaning up between connections
 new multitargeted solution allows for PCL and netstandard
 
@@ -155,12 +158,22 @@ Initial Public Release</PackageReleaseNotes>
         <Company />
         <Version>2.1.0</Version>
     </PropertyGroup>
-    <!--
+
     <PropertyGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
         <TargetPlatformVersion>10.0.15060.0</TargetPlatformVersion>
         <TargetPlatformMinVersion>10.0.15001.0</TargetPlatformMinVersion>
     </PropertyGroup>
-    -->
+
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.0' OR '$(TargetFramework)' == 'portable-net45+win8+wpa81+wp8' ">
+        <DefineConstants>$(DefineConstants);BAIT</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(TargetFramework)' == 'portable-net45+win8+wpa81+wp8' ">
+        <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
+        <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+        <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+        <!--<NugetTargetMoniker>.NETPortable,Version=v0.0,Profile=Profile259</NugetTargetMoniker>-->
+    </PropertyGroup>
 
     <ItemGroup>
         <Compile Remove="Platforms\**\*.*" />
@@ -177,20 +190,44 @@ Initial Public Release</PackageReleaseNotes>
         <PackageReference Include="Rx-Main" Version="2.2.5" />
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'xamarinios' OR '$(TargetFramework)' == 'xamarintvos' OR '$(TargetFramework)' == 'xamarinmac' ">
-        <Compile Include="Platforms\Apple\*.cs" />
+    <ItemGroup Condition=" '$(TargetFramework)' == 'Xamarin.iOS10' ">
+        <Compile Include="Platforms\Apple\**\*.cs" />
         <PackageReference Include="System.Reactive" Version="3.1.1" />
+
+        <Reference Include="System" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Core" />
+        <Reference Include="Xamarin.iOS" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '($TargetFramework)' == 'Xamarin.tvOS10' ">
+        <Compile Include="Platforms\Apple\**\*.cs" />
+        <PackageReference Include="System.Reactive" Version="3.1.1" />
+        <Reference Include="System" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Core" />
+        <Reference Include="Xamarin.tvOS" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '($TargetFramework)' == 'Xamarin.Mac' ">
+        <Compile Include="Platforms\Apple\**\*.cs" />
+        <PackageReference Include="System.Reactive" Version="3.1.1" />
+
+        <Reference Include="System" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Core" />
+        <Reference Include="Xamarin.Mac" />
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'monoandroid70' ">
-        <Compile Include="Platforms\Android\*.cs" />
+        <Compile Include="Platforms\Android\**\*.cs" />
         <PackageReference Include="System.Reactive" Version="3.1.1" />
     </ItemGroup>
 
-    <!--<ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
-        <Compile Include="Platforms\Uwp\*.cs" />
+    <ItemGroup Condition=" '$(TargetFramework)' == 'uap10.0' ">
+        <Compile Include="Platforms\Uwp\**\*.cs" />
         <PackageReference Include="System.Reactive" Version="3.1.1" />
         <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform " Version="5.3.1" />
-    </ItemGroup>-->
+    </ItemGroup>
     <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

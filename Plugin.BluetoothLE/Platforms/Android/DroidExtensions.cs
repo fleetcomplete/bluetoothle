@@ -5,7 +5,7 @@ using Java.Util;
 
 namespace Plugin.BluetoothLE
 {
-    internal static class Extensions
+    internal static class DroidExtensions
     {
         public static Guid ToGuid(this byte[] uuidBytes)
         {
@@ -27,22 +27,14 @@ namespace Plugin.BluetoothLE
         }
 
 
-        public static Guid ToGuid(this UUID uuid)
-        {
-            return Guid.ParseExact(uuid.ToString(), "d");
-        }
+        public static Guid ToGuid(this UUID uuid) =>
+            Guid.ParseExact(uuid.ToString(), "d");
+
+        public static ParcelUuid ToParcelUuid(this Guid guid) =>
+            ParcelUuid.FromString(guid.ToString());
 
 
-        // TODO: is this working?
-        public static ParcelUuid ToParcelUuid(this Guid guid)
-        {
-            return ParcelUuid.FromString(guid.ToString());
-        }
-
-
-        public static UUID ToUuid(this Guid guid)
-        {
-            return UUID.FromString(guid.ToString());
-        }
+        public static UUID ToUuid(this Guid guid) =>
+            UUID.FromString(guid.ToString());
     }
 }

@@ -7,47 +7,34 @@ namespace Plugin.BluetoothLE
     public static partial class Extensions
     {
         public static IObservable<IScanResult> ScanOrListen(this IAdapter adapter)
-        {
-            return adapter.IsScanning ? adapter.ScanListen() : adapter.Scan();
-        }
+            => adapter.IsScanning ? adapter.ScanListen() : adapter.Scan();
 
 
         public static bool CanOpenSettings(this IAdapter adapter)
-        {
-            return adapter.Features.HasFlag(AdapterFeatures.OpenSettings);
-        }
+            => adapter.Features.HasFlag(AdapterFeatures.OpenSettings);
 
 
         public static bool CanViewPairedDevices(this IAdapter adapter)
-        {
-            return adapter.Features.HasFlag(AdapterFeatures.ViewPairedDevices);
-        }
+            => adapter.Features.HasFlag(AdapterFeatures.ViewPairedDevices);
 
 
         public static bool CanControlAdapterState(this IAdapter adapter)
-        {
-            return adapter.Features.HasFlag(AdapterFeatures.ControlAdapterState);
-        }
+            => adapter.Features.HasFlag(AdapterFeatures.ControlAdapterState);
 
 
         public static bool CanPerformLowPoweredScans(this IAdapter adapter)
-        {
-            return adapter.Features.HasFlag(AdapterFeatures.LowPoweredScan);
-        }
+            => adapter.Features.HasFlag(AdapterFeatures.LowPoweredScan);
 
 
-        public static IObservable<IDevice> ScanForUniqueDevices(this IAdapter adapter)
-        {
-            return adapter
+        public static IObservable<IDevice> ScanForUniqueDevices(this IAdapter adapter) =>
+            adapter
                 .Scan()
                 .Distinct(x => x.Device.Uuid)
                 .Select(x => x.Device);
-        }
 
 
-        public static IObservable<IScanResult> ScanWhenAdapterReady(this IAdapter adapter)
-        {
-            return Observable.Create<IScanResult>(ob =>
+        public static IObservable<IScanResult> ScanWhenAdapterReady(this IAdapter adapter) =>
+            Observable.Create<IScanResult>(ob =>
             {
                 IDisposable scan = null;
                 var sub = adapter
@@ -63,12 +50,10 @@ namespace Plugin.BluetoothLE
                     sub.Dispose();
                 };
             });
-        }
 
 
-        public static IObservable<IScanResult> ScanInterval(this IAdapter adapter, TimeSpan timeSpan)
-        {
-            return Observable.Create<IScanResult>(ob =>
+        public static IObservable<IScanResult> ScanInterval(this IAdapter adapter, TimeSpan timeSpan) =>
+            Observable.Create<IScanResult>(ob =>
             {
                 var scanner = adapter
                     .Scan()
@@ -97,6 +82,5 @@ namespace Plugin.BluetoothLE
                     scanner?.Dispose();
                 };
             });
-        }
     }
 }

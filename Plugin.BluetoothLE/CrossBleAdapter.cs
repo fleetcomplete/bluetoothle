@@ -26,12 +26,10 @@ namespace Plugin.BluetoothLE
 #if BAIT
                 if (current == null)
                     throw new ArgumentException("[Plugin.BluetoothLE] No platform plugin found.  Did you install the nuget package in your app project as well?");
-
-                return current;
 #else
                 current = current ?? new Adapter();
-                return current;
 #endif
+                return current;
             }
             set { current = value; }
         }
