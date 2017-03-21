@@ -44,7 +44,7 @@ namespace Plugin.BluetoothLE
                 {
                     WriteLine($"Incoming Characteristic Write Event - " + args.Characteristic.Uuid);
 
-                    if (args.Characteristic.Equals(this.native))
+                    if (args.Characteristic.Uuid.Equals(this.native.Uuid))
                     {
                         if (!args.IsSuccessful)
                         {
@@ -84,7 +84,7 @@ namespace Plugin.BluetoothLE
             {
                 var handler = new EventHandler<GattCharacteristicEventArgs>((sender, args) =>
                 {
-                    if (args.Characteristic.Equals(this.native))
+                    if (args.Characteristic.Uuid.Equals(this.native.Uuid))
                     {
                         if (!args.IsSuccessful)
                         {
