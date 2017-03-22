@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		nuspec\Acr.Ble.nuspec = nuspec\Acr.Ble.nuspec
 		build.cake = build.cake
 		build.cmd = build.cmd
+		nuspec\FC.BluetoothLE.nuspec = nuspec\FC.BluetoothLE.nuspec
 		icon.png = icon.png
 		LICENSE.md = LICENSE.md
 		nuspec\nuget.exe = nuspec\nuget.exe
